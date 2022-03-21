@@ -15,6 +15,14 @@ public interface GoodsRepository extends CrudRepository<GoodsEntity, Long> {
 
     @Modifying
     @Query(value = "UPDATE t_goods SET store=store-1 WHERE goods_num=?1 AND store > 0", nativeQuery = true)
-    void decrGoodsStore(String goodsNum);
+    void decrStoreByMySQL(String goodsNum);
+
+
+    /**
+     * 去掉AND store > 0 只是为了验证使用redis是否能确保没有超卖。
+     */
+    @Modifying
+    @Query(value = "UPDATE t_goods SET store=store-1 WHERE goods_num=?1", nativeQuery = true)
+    void decrStoreByRedis(String goodsNum);
 
 }

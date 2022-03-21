@@ -5,6 +5,8 @@ import com.learning.seckill.repository.GoodsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,11 +30,27 @@ public class GoodsServiceImpl implements GoodsService{
     @Autowired
     private GoodsRepository goodsRepository;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean decrGoodsStore(String goodsNum) {
-        goodsRepository.decrGoodsStore(goodsNum);
+    public boolean seckillByMySQL(String goodsNum) {
+        goodsRepository.decrStoreByMySQL(goodsNum);
         return true;
+    }
+
+    @Override
+    public boolean seckillByRedis(String goodsNum) {
+        // 先将流量打到redis上。
+        ValueOperations<String, String> strOps = stringRedisTemplate.opsForValue();
+        Long decrement = strOps.decrement(goodsNum);
+        if(decrement >= 0) {
+            // redis扣减成功了，再扣减数据库。
+            goodsRepository.decrStoreByRedis(goodsNum);
+            return true;
+        }
+        return false;
     }
 
     @Override

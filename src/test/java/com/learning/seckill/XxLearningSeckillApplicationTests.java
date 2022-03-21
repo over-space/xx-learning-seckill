@@ -26,7 +26,7 @@ class XxLearningSeckillApplicationTests {
     void shop(){
         Random random = new Random();
         for (int i = 0; i < 100; i++) {
-            goodsService.decrGoodsStore("" + random.nextInt(2000));
+            goodsService.seckillByMySQL("" + random.nextInt(2000));
         }
     }
 }

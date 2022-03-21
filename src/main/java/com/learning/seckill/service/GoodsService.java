@@ -6,7 +6,10 @@ package com.learning.seckill.service;
  */
 public interface GoodsService {
 
-    boolean decrGoodsStore(String goodsNum);
+    boolean seckillByMySQL(String goodsNum);
+
+
+    boolean seckillByRedis(String goodsNum);
 
     void init();
 }
