@@ -8,8 +8,9 @@ public interface GoodsService {
 
     boolean seckillByMySQL(String goodsNum);
 
+    boolean seckillByRedisV1(String goodsNum);
 
-    boolean seckillByRedis(String goodsNum);
+    boolean seckillByRedisV2(String goodsNum);
 
     void init();
 }

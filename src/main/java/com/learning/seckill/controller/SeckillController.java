@@ -25,9 +25,15 @@ public class SeckillController {
     }
 
 
-    @GetMapping(value = "/redis/seckill")
-    public ResponseEntity seckillByRedis(@RequestParam String goodsNum){
-        goodsService.seckillByRedis(goodsNum);
+    @GetMapping(value = "/redis/seckill/v1")
+    public ResponseEntity seckillByRedisV1(@RequestParam String goodsNum){
+        goodsService.seckillByRedisV1(goodsNum);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/redis/seckill/v2")
+    public ResponseEntity seckillByRedisV2(@RequestParam String goodsNum){
+        goodsService.seckillByRedisV2(goodsNum);
         return new ResponseEntity(HttpStatus.OK);
     }
 
