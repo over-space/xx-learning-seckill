@@ -37,6 +37,13 @@ public class SeckillController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @GetMapping(value = "/thread/seckill/v1")
+    public ResponseEntity seckillByThreadV1(@RequestParam String goodsNum){
+        goodsService.seckillByThreadV1(goodsNum);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+
     @GetMapping(value = "/init/goods")
     public ResponseEntity init(){
         goodsService.init();

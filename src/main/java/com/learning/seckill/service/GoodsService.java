@@ -12,5 +12,7 @@ public interface GoodsService {
 
     boolean seckillByRedisV2(String goodsNum);
 
+    boolean seckillByThreadV1(String goodsNum);
+
     void init();
 }
